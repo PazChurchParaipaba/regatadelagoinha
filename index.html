@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regata de Lagoinha - Organização</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+    </div>
+
+    <main class="app-container">
+        <header class="glass-panel app-header">
+            <div class="header-content">
+                <img src="logoregata.png" alt="Logo Regata" style="height: 80px; object-fit: contain;">
+                <div>
+                    <h1>Regata de Lagoinha</h1>
+                    <p>Gestão Financeira e Controle de Insumos</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="glass-panel nav-panel">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="cestas">
+                    <i class="ri-shopping-basket-2-line"></i>
+                    <span>Cestas</span>
+                </button>
+                <button class="tab-btn" data-tab="prestacao">
+                    <i class="ri-receipt-line"></i>
+                    <span>Despesas e Fornecedores</span>
+                </button>
+                <button class="tab-btn" data-tab="embarcacoes">
+                    <i class="ri-ship-2-line"></i>
+                    <span>Embarcações</span>
+                </button>
+                <button class="tab-btn" data-tab="patrocinadores">
+                    <i class="ri-medal-line"></i>
+                    <span>Patrocinadores</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <!-- Secão Cestas -->
+            <section id="cestas" class="tab-content active">
+                <div class="grid-layout">
+                    <div class="glass-panel form-panel">
+                        <h2><i class="ri-add-circle-line"></i> Nova Cesta</h2>
+                        <form id="form-cestas" class="st-form">
+                            <div class="input-group">
+                                <label for="nome">Nome do Pagador</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-user-line"></i>
+                                    <input type="text" id="nome" required placeholder="Ex: Lizandra">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="data-pag">Data do Pagamento</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-calendar-line"></i>
+                                    <input type="date" id="data-pag" required>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="valor">Valor Pago (R$)</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-money-dollar-circle-line"></i>
+                                        <input type="number" id="valor" step="0.01" required placeholder="0.00">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="qtd-cestas">Quantidade</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-box-3-line"></i>
+                                        <input type="number" id="qtd-cestas" required placeholder="Ex: 1">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary glow-btn">
+                                <span>Registrar Cesta</span>
+                                <i class="ri-arrow-right-line"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="glass-panel table-panel">
+                        <div class="panel-header">
+                            <h2><i class="ri-list-check-2"></i> Registros de Cestas</h2>
+                        </div>
+                        <div class="table-wrapper">
+                            <table id="table-cestas">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Data</th>
+                                        <th>Valor</th>
+                                        <th>Qtd</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- JS Content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secão Prestação de Contas -->
+            <section id="prestacao" class="tab-content">
+                <div class="grid-layout">
+                    <div class="glass-panel form-panel">
+                        <h2><i class="ri-add-circle-line"></i> Nova Despesa</h2>
+                        <form id="form-prestacao" class="st-form">
+                            <div class="input-group">
+                                <label for="fornecedor">Fornecedor</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-store-2-line"></i>
+                                    <input type="text" id="fornecedor" required placeholder="Ex: Supermercado XYZ">
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="produto">Produto / Serviço</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-shopping-cart-2-line"></i>
+                                    <input type="text" id="produto" required placeholder="Ex: Queijo Mussarela">
+                                </div>
+                            </div>
+
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="qtd">Quantidade</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-numbers-line"></i>
+                                        <input type="number" id="qtd" step="0.01" required placeholder="Ex: 1.5">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="unidade">Unidade</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-scale-3-line"></i>
+                                        <input type="text" id="unidade" required placeholder="Ex: kg, un">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="valor-unitario">Valor Unitário (R$)</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-price-tag-3-line"></i>
+                                        <input type="number" id="valor-unitario" step="0.01" required placeholder="0.00">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="total">Total (R$)</label>
+                                    <div class="input-wrapper readonly">
+                                        <i class="ri-money-dollar-box-line"></i>
+                                        <input type="number" id="total" step="0.01" required readonly placeholder="0.00">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary glow-btn">
+                                <span>Registrar Despesa</span>
+                                <i class="ri-arrow-right-line"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="glass-panel table-panel">
+                        <div class="panel-header">
+                            <h2><i class="ri-list-check-2"></i> Relatório de Despesas</h2>
+                            <div class="filter-wrapper">
+                                <i class="ri-filter-3-line"></i>
+                                <input type="text" id="filter-fornecedor" placeholder="Filtrar por Fornecedor...">
+                            </div>
+                        </div>
+                        <div class="table-wrapper">
+                            <table id="table-prestacao">
+                                <thead>
+                                    <tr>
+                                        <th>Fornecedor</th>
+                                        <th>Produto</th>
+                                        <th>Qtd/Unid</th>
+                                        <th>V. Unitário</th>
+                                        <th>Total</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- JS Content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secão Embarcações -->
+            <section id="embarcacoes" class="tab-content">
+                <div class="grid-layout">
+                    <div class="glass-panel form-panel">
+                        <h2><i class="ri-add-circle-line"></i> Cadastrar Embarcação</h2>
+                        <form id="form-embarcacoes" class="st-form">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="num-embarcacao">Nº (1-85)</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-hashtag"></i>
+                                        <input type="number" id="num-embarcacao" min="1" max="85" required placeholder="Nº">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="tamanho-embarcacao">Tamanho</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-ruler-line"></i>
+                                        <select id="tamanho-embarcacao" required style="width:100%; background:var(--input-bg); border:1px solid var(--glass-border); color:var(--text-main); padding:0.8rem 1rem 0.8rem 2.8rem; border-radius:12px; appearance:none;">
+                                            <option value="Pequena">Pequena</option>
+                                            <option value="Média">Média</option>
+                                            <option value="Grande">Grande</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="nome-embarcacao">Nome da Embarcação</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-ship-line"></i>
+                                    <input type="text" id="nome-embarcacao" required placeholder="Ex: Golfinho">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="proprietario-embarcacao">Nome do Proprietário</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-user-star-line"></i>
+                                    <input type="text" id="proprietario-embarcacao" required placeholder="Ex: João Silva">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="empresa-embarcacao">Patrocínio / Empresa</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-building-line"></i>
+                                    <input type="text" id="empresa-embarcacao" placeholder="Ex: Empresa XYZ (Opcional)">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary glow-btn">
+                                <span>Salvar Embarcação</span>
+                                <i class="ri-save-line"></i>
+                            </button>
+                            <button type="button" id="btn-cancelar-edicao" class="btn-primary glow-btn" style="display:none; background:var(--danger); margin-top:0.5rem;">
+                                <span>Cancelar Edição</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="glass-panel table-panel">
+                        <div class="panel-header" style="flex-direction: column; align-items: flex-start; gap: 1rem;">
+                            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                <h2><i class="ri-list-check-2"></i> Lista de Embarcações</h2>
+                                <button class="btn-primary" onclick="window.print()" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                    <i class="ri-printer-line"></i> Imprimir
+                                </button>
+                            </div>
+                            <div class="boat-filters no-print">
+                                <button class="boat-filter active" data-size="Todas">Todas <span id="count-todas" class="badge">0</span></button>
+                                <button class="boat-filter" data-size="Pequena">Pequenas <span id="count-pequenas" class="badge">0</span></button>
+                                <button class="boat-filter" data-size="Média">Médias <span id="count-medias" class="badge">0</span></button>
+                                <button class="boat-filter" data-size="Grande">Grandes <span id="count-grandes" class="badge">0</span></button>
+                            </div>
+                        </div>
+                        <div class="table-wrapper">
+                            <table id="table-embarcacoes">
+                                <thead>
+                                    <tr>
+                                        <th>Nº</th>
+                                        <th>Embarcação</th>
+                                        <th>Proprietário</th>
+                                        <th>Patrocínio</th>
+                                        <th>Tamanho</th>
+                                        <th class="no-print">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- JS Content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secão Patrocinadores -->
+            <section id="patrocinadores" class="tab-content">
+                <div class="grid-layout">
+                    <div class="glass-panel form-panel">
+                        <h2><i class="ri-add-circle-line"></i> Novo Patrocinador</h2>
+                        <form id="form-patrocinadores" class="st-form">
+                            <div class="input-group">
+                                <label for="nome-patrocinador">Nome do Patrocinador</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-medal-2-line"></i>
+                                    <input type="text" id="nome-patrocinador" required placeholder="Ex: Mercado Central">
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="tipo-patrocinio">Tipo de Patrocínio</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-star-line"></i>
+                                        <select id="tipo-patrocinio" required style="width:100%; background:var(--input-bg); border:1px solid var(--glass-border); color:var(--text-main); padding:0.8rem 1rem 0.8rem 2.8rem; border-radius:12px; appearance:none;">
+                                            <option value="Básico">Básico</option>
+                                            <option value="Master">Master</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="valor-patrocinio">Valor (R$)</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-money-dollar-circle-line"></i>
+                                        <input type="number" id="valor-patrocinio" step="0.01" required placeholder="0.00">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary glow-btn">
+                                <span>Registrar Patrocinador</span>
+                                <i class="ri-arrow-right-line"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="glass-panel table-panel">
+                        <div class="panel-header">
+                            <h2><i class="ri-list-check-2"></i> Relatório de Patrocinadores</h2>
+                        </div>
+                        <div class="table-wrapper">
+                            <table id="table-patrocinadores">
+                                <thead>
+                                    <tr>
+                                        <th>Patrocinador</th>
+                                        <th>Tipo</th>
+                                        <th>Valor (R$)</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- JS Content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
