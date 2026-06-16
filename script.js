@@ -205,13 +205,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const nome_barco = document.getElementById('nome-embarcacao').value.trim();
         const proprietario = document.getElementById('proprietario-embarcacao').value.trim();
         const empresa = document.getElementById('empresa-embarcacao').value.trim();
+        const tecido_entregue = document.getElementById('tecido-embarcacao').value.trim();
+        const data_entrega_tecido = document.getElementById('data-entrega-tecido').value;
 
         if (editingEmbarcacaoId) {
-            await supabaseClient.from('embarcacoes').update({ num_embarcacao, tamanho, nome_barco, proprietario, empresa }).eq('id', editingEmbarcacaoId);
+            await supabaseClient.from('embarcacoes').update({ num_embarcacao, tamanho, nome_barco, proprietario, empresa, tecido_entregue, data_entrega_tecido: data_entrega_tecido || null }).eq('id', editingEmbarcacaoId);
             editingEmbarcacaoId = null;
             document.getElementById('btn-cancelar-edicao').style.display = 'none';
         } else {
-            await supabaseClient.from('embarcacoes').insert([{ num_embarcacao, tamanho, nome_barco, proprietario, empresa }]);
+            await supabaseClient.from('embarcacoes').insert([{ num_embarcacao, tamanho, nome_barco, proprietario, empresa, tecido_entregue, data_entrega_tecido: data_entrega_tecido || null }]);
         }
 
         formEmbarcacoes.reset();
@@ -256,6 +258,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td><strong>${item.nome_barco}</strong></td>
                 <td>${item.proprietario || '-'}</td>
                 <td>${item.empresa || '-'}</td>
+                <td>${item.tecido_entregue || '-'}</td>
+                <td>${formatDate(item.data_entrega_tecido) || '-'}</td>
                 <td><span class="tag-size ${item.tamanho === 'Pequena' ? 'tag-pequena' : item.tamanho === 'Média' ? 'tag-media' : item.tamanho === 'Grande' ? 'tag-grande' : ''}">${item.tamanho}</span></td>
                 <td class="no-print">
                     <button class="btn-icon" onclick="deleteEmbarcacao(${item.id})" title="Excluir">
@@ -279,6 +283,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('nome-embarcacao').value = item.nome_barco || '';
         document.getElementById('proprietario-embarcacao').value = item.proprietario || '';
         document.getElementById('empresa-embarcacao').value = item.empresa || '';
+        document.getElementById('tecido-embarcacao').value = item.tecido_entregue || '';
+        document.getElementById('data-entrega-tecido').value = item.data_entrega_tecido || '';
         document.getElementById('btn-cancelar-edicao').style.display = 'inline-flex';
         document.getElementById('num-embarcacao').focus();
     };
