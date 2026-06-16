@@ -205,15 +205,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const nome_barco = document.getElementById('nome-embarcacao').value.trim();
         const proprietario = document.getElementById('proprietario-embarcacao').value.trim();
         const empresa = document.getElementById('empresa-embarcacao').value.trim();
-        const tecido_entregue = document.getElementById('tecido-embarcacao').value.trim();
-        const data_entrega_tecido = document.getElementById('data-entrega-tecido').value;
 
         if (editingEmbarcacaoId) {
-            await supabaseClient.from('embarcacoes').update({ num_embarcacao, tamanho, nome_barco, proprietario, empresa, tecido_entregue, data_entrega_tecido: data_entrega_tecido || null }).eq('id', editingEmbarcacaoId);
+            await supabaseClient.from('embarcacoes').update({ num_embarcacao, tamanho, nome_barco, proprietario, empresa }).eq('id', editingEmbarcacaoId);
             editingEmbarcacaoId = null;
             document.getElementById('btn-cancelar-edicao').style.display = 'none';
         } else {
-            await supabaseClient.from('embarcacoes').insert([{ num_embarcacao, tamanho, nome_barco, proprietario, empresa, tecido_entregue, data_entrega_tecido: data_entrega_tecido || null }]);
+            await supabaseClient.from('embarcacoes').insert([{ num_embarcacao, tamanho, nome_barco, proprietario, empresa }]);
         }
 
         formEmbarcacoes.reset();
@@ -258,8 +256,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td><strong>${item.nome_barco}</strong></td>
                 <td>${item.proprietario || '-'}</td>
                 <td>${item.empresa || '-'}</td>
-                <td>${item.tecido_entregue || '-'}</td>
-                <td>${formatDate(item.data_entrega_tecido) || '-'}</td>
                 <td><span class="tag-size ${item.tamanho === 'Pequena' ? 'tag-pequena' : item.tamanho === 'Média' ? 'tag-media' : item.tamanho === 'Grande' ? 'tag-grande' : ''}">${item.tamanho}</span></td>
                 <td class="no-print">
                     <button class="btn-icon" onclick="deleteEmbarcacao(${item.id})" title="Excluir">
@@ -283,8 +279,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('nome-embarcacao').value = item.nome_barco || '';
         document.getElementById('proprietario-embarcacao').value = item.proprietario || '';
         document.getElementById('empresa-embarcacao').value = item.empresa || '';
-        document.getElementById('tecido-embarcacao').value = item.tecido_entregue || '';
-        document.getElementById('data-entrega-tecido').value = item.data_entrega_tecido || '';
         document.getElementById('btn-cancelar-edicao').style.display = 'inline-flex';
         document.getElementById('num-embarcacao').focus();
     };
@@ -298,6 +292,63 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.deleteEmbarcacao = async (id) => {
         await supabaseClient.from('embarcacoes').delete().eq('id', id);
         fetchEmbarcacoes();
+    };
+
+    // ==========================================
+    // TECIDOS LOGIC
+    // ==========================================
+    const formTecidos = document.getElementById('form-tecidos');
+    const tableTecidos = document.querySelector('#table-tecidos tbody');
+    let tecidosData = [];
+
+    async function fetchTecidos() {
+        const { data, error } = await supabaseClient.from('tecidos').select('*').order('created_at', { ascending: false });
+        if (!error) {
+            tecidosData = data;
+            renderTecidos();
+        }
+    }
+
+    formTecidos.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const recebedor = document.getElementById('recebedor-tecido').value.trim();
+        const metragem = document.getElementById('qtd-tecido').value.trim();
+        const data_entrega = document.getElementById('data-tecido').value;
+
+        await supabaseClient.from('tecidos').insert([{ recebedor, metragem, data_entrega }]);
+        
+        formTecidos.reset();
+        document.getElementById('recebedor-tecido').focus();
+        fetchTecidos();
+    });
+
+    function renderTecidos() {
+        tableTecidos.innerHTML = '';
+        if (tecidosData.length === 0) {
+            tableTecidos.innerHTML = '<tr><td colspan="4" class="empty-state"><i class="ri-scissors-cut-line"></i>Nenhum tecido registrado.</td></tr>';
+            return;
+        }
+
+        tecidosData.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${item.recebedor}</strong></td>
+                <td>${item.metragem}</td>
+                <td>${formatDate(item.data_entrega)}</td>
+                <td class="no-print">
+                    <button class="btn-icon" onclick="deleteTecido(${item.id})" title="Remover Tecido">
+                        <i class="ri-delete-bin-line"></i>
+                    </button>
+                </td>
+            `;
+            tableTecidos.appendChild(tr);
+        });
+    }
+
+    window.deleteTecido = async (id) => {
+        await supabaseClient.from('tecidos').delete().eq('id', id);
+        fetchTecidos();
     };
 
     // ==========================================
@@ -360,5 +411,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     fetchCestas();
     fetchPrestacao();
     fetchEmbarcacoes();
+    fetchTecidos();
     fetchPatrocinadores();
 });

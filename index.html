@@ -40,6 +40,10 @@
                     <i class="ri-ship-2-line"></i>
                     <span>Embarcações</span>
                 </button>
+                <button class="tab-btn" data-tab="tecidos">
+                    <i class="ri-scissors-cut-line"></i>
+                    <span>Tecidos</span>
+                </button>
                 <button class="tab-btn" data-tab="patrocinadores">
                     <i class="ri-medal-line"></i>
                     <span>Patrocinadores</span>
@@ -254,26 +258,6 @@
                                     <input type="text" id="empresa-embarcacao" placeholder="Ex: Empresa XYZ (Opcional)">
                                 </div>
                             </div>
-                            <div style="background: rgba(0, 0, 0, 0.15); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; margin-bottom: 1.5rem;">
-                                <h3 style="font-size: 1.1rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.2rem; font-weight: 500;">
-                                    <i class="ri-scissors-cut-line"></i> Controle de Tecido
-                                </h3>
-                                <div class="input-row" style="margin-bottom: 0;">
-                                    <div class="input-group">
-                                        <label for="tecido-embarcacao">Tecido para Vela</label>
-                                        <div class="input-wrapper">
-                                            <i class="ri-ruler-line"></i>
-                                            <input type="text" id="tecido-embarcacao" placeholder="Qtd entregue (Ex: 10m)">
-                                        </div>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="data-entrega-tecido">Data da Entrega</label>
-                                        <div class="input-wrapper">
-                                            <i class="ri-calendar-line"></i>
-                                            <input type="date" id="data-entrega-tecido">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <button type="submit" class="btn-primary glow-btn">
                                 <span>Salvar Embarcação</span>
@@ -308,9 +292,66 @@
                                         <th>Embarcação</th>
                                         <th>Proprietário</th>
                                         <th>Patrocínio</th>
+                                        <th>Tamanho</th>
+                                        <th class="no-print">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- JS Content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secão Tecidos -->
+            <section id="tecidos" class="tab-content">
+                <div class="grid-layout">
+                    <div class="glass-panel form-panel">
+                        <h2><i class="ri-add-circle-line"></i> Entrega de Tecido</h2>
+                        <form id="form-tecidos" class="st-form">
+                            <div class="input-group">
+                                <label for="recebedor-tecido">Nome / Recebedor</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-user-line"></i>
+                                    <input type="text" id="recebedor-tecido" required placeholder="Ex: João da Silva">
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="qtd-tecido">Quantidade de Tecido</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-ruler-line"></i>
+                                        <input type="text" id="qtd-tecido" required placeholder="Ex: 10m">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="data-tecido">Data da Entrega</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-calendar-line"></i>
+                                        <input type="date" id="data-tecido" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary glow-btn">
+                                <span>Salvar Tecido</span>
+                                <i class="ri-save-line"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="glass-panel table-panel">
+                        <div class="panel-header">
+                            <h2><i class="ri-list-check-2"></i> Relatório de Tecidos Entregues</h2>
+                        </div>
+                        <div class="table-wrapper">
+                            <table id="table-tecidos">
+                                <thead>
+                                    <tr>
+                                        <th>Recebedor</th>
                                         <th>Tecido Entregue</th>
                                         <th>Data Entrega</th>
-                                        <th>Tamanho</th>
                                         <th class="no-print">Ações</th>
                                     </tr>
                                 </thead>
