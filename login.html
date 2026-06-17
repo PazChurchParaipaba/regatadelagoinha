@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regata de Lagoinha - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .login-box:hover {
+            transform: translateY(-5px);
+        }
+        .login-header img {
+            height: 100px;
+            margin-bottom: 1rem;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+        }
+        .login-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+        .login-header p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        .st-form .input-wrapper {
+            margin-bottom: 1.5rem;
+        }
+        .btn-full {
+            width: 100%;
+            justify-content: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+        .toggle-form {
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+            font-size: 0.9rem;
+        }
+        .toggle-form:hover {
+            color: var(--text-main);
+        }
+        #register-fields {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .error-message {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            color: #ff4757;
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="glass-panel login-box">
+            <div class="login-header">
+                <img src="logoregata.png" alt="Logo Regata">
+                <h1>Acesso Restrito</h1>
+                <p id="form-subtitle">Faça login para continuar</p>
+            </div>
+            
+            <div id="error-msg" class="error-message"></div>
+
+            <form id="login-form" class="st-form">
+                <div id="register-fields">
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <i class="ri-user-3-line"></i>
+                            <input type="text" id="nome" placeholder="Nome Completo">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="ri-mail-line"></i>
+                        <input type="email" id="email" required placeholder="E-mail">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="ri-lock-line"></i>
+                        <input type="password" id="password" required placeholder="Senha">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary glow-btn btn-full" id="submit-btn">
+                    <span>Entrar</span>
+                    <i class="ri-login-box-line"></i>
+                </button>
+            </form>
+
+            <div class="toggle-form" id="toggle-btn">
+                Não tem uma conta? <strong>Cadastre-se</strong>
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

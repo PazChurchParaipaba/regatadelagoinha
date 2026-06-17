@@ -17,11 +17,22 @@
 
     <main class="app-container">
         <header class="glass-panel app-header">
-            <div class="header-content">
-                <img src="logoregata.png" alt="Logo Regata" style="height: 80px; object-fit: contain;">
-                <div>
-                    <h1>Regata de Lagoinha</h1>
-                    <p>Gestão Financeira e Controle de Insumos</p>
+            <div class="header-content" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <img src="logoregata.png" alt="Logo Regata" style="height: 80px; object-fit: contain;">
+                    <div>
+                        <h1>Regata de Lagoinha</h1>
+                        <p>Gestão Financeira e Controle de Insumos</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;" class="no-print">
+                    <div id="user-info" style="text-align: right; display: none;">
+                        <span style="display: block; font-weight: 500;" id="user-name">Usuário</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);" id="user-email">email@email.com</span>
+                    </div>
+                    <button id="logout-btn" class="btn-icon" style="background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2);" title="Sair do Sistema">
+                        <i class="ri-logout-box-r-line"></i>
+                    </button>
                 </div>
             </div>
         </header>

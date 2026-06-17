@@ -3,6 +3,55 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // ---- Auth Logic ----
+    const sessionStr = localStorage.getItem('user_session');
+    if (!sessionStr) {
+        window.location.href = 'login.html';
+        return;
+    }
+    
+    try {
+        const sessionData = JSON.parse(sessionStr);
+        const userInfo = document.getElementById('user-info');
+        if (userInfo) {
+            userInfo.style.display = 'block';
+            document.getElementById('user-name').innerText = sessionData.nome_completo || 'Usuário';
+            document.getElementById('user-email').innerText = sessionData.email || '';
+        }
+
+        // --- Controle de Acesso (RBAC) ---
+        if (sessionData.email === 'val@colonia.paraipaba.com') {
+            // Oculta todas as abas, menos Embarcações
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => {
+                if (tab.getAttribute('data-tab') !== 'embarcacoes') {
+                    tab.style.display = 'none';
+                }
+            });
+
+            // Força a aba de embarcações a ser a ativa por padrão
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            const embarcacoesTabBtn = document.querySelector('.tab-btn[data-tab="embarcacoes"]');
+            if (embarcacoesTabBtn) embarcacoesTabBtn.classList.add('active');
+            
+            const embarcacoesSection = document.getElementById('embarcacoes');
+            if (embarcacoesSection) embarcacoesSection.classList.add('active');
+        }
+
+    } catch (e) {
+        console.error('Erro ao ler a sessão:', e);
+    }
+
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('user_session');
+            window.location.href = 'login.html';
+        });
+    }
+
     // ---- Tabs Logic ----
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
