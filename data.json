@@ -305,7 +305,7 @@
   },
   {
     "id": 3348,
-    "numEmbarcacao": 49,
+    "numEmbarcacao": 39,
     "empresa": "",
     "proprietario": "LEONARDO CORDEIRO DE SOUSA",
     "tamanho": "Pequena",
@@ -321,7 +321,7 @@
   },
   {
     "id": 3350,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 1,
     "empresa": "",
     "proprietario": "FCº DOS SANTSO SANTOS  AZEVEDO",
     "tamanho": "Média",
@@ -329,7 +329,7 @@
   },
   {
     "id": 335,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 2,
     "empresa": "",
     "proprietario": "JOSÉ VALDENOR DE ALMEIDA",
     "tamanho": "Média",
@@ -337,7 +337,7 @@
   },
   {
     "id": 436,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 3,
     "empresa": "",
     "proprietario": "CID RODRIGUES DA COSTA",
     "tamanho": "Média",
@@ -345,7 +345,7 @@
   },
   {
     "id": 537,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 4,
     "empresa": "",
     "proprietario": "FCº JOSÉ FERREIRA DA SILVA",
     "tamanho": "Média",
@@ -353,7 +353,7 @@
   },
   {
     "id": 3351,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 5,
     "empresa": "",
     "proprietario": "ANTº FERREIRA  DE QUEIROZ",
     "tamanho": "Média",
@@ -361,7 +361,7 @@
   },
   {
     "id": 840,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 6,
     "empresa": "",
     "proprietario": "RAIMUNDO COSTA DE SOUSA",
     "tamanho": "Média",
@@ -369,7 +369,7 @@
   },
   {
     "id": 941,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 7,
     "empresa": "",
     "proprietario": "FRANCISCO M.FILHO",
     "tamanho": "Média",
@@ -377,7 +377,7 @@
   },
   {
     "id": 1042,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 8,
     "empresa": "",
     "proprietario": "JOSÉ FERREIRA DOS SANTOS",
     "tamanho": "Média",
@@ -385,7 +385,7 @@
   },
   {
     "id": 1143,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 9,
     "empresa": "",
     "proprietario": "MANOEL DIAS DO CARMO",
     "tamanho": "Média",
@@ -393,7 +393,7 @@
   },
   {
     "id": 1244,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 10,
     "empresa": "",
     "proprietario": "MILTON FERREIRA DE QUEIROZ",
     "tamanho": "Média",
@@ -401,7 +401,7 @@
   },
   {
     "id": 1345,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 11,
     "empresa": "",
     "proprietario": "LEONARDO DIAS FERREIRA",
     "tamanho": "Média",
@@ -409,7 +409,7 @@
   },
   {
     "id": 3352,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 12,
     "empresa": "",
     "proprietario": "TACIANO BARBOSA DA COSTA",
     "tamanho": "Média",
@@ -417,7 +417,7 @@
   },
   {
     "id": 1547,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 13,
     "empresa": "",
     "proprietario": "JOÃO NUNES DE SOUSA",
     "tamanho": "Média",
@@ -425,7 +425,7 @@
   },
   {
     "id": 1648,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 14,
     "empresa": "",
     "proprietario": "FRANCISCO TABOSA GONÇALVES",
     "tamanho": "Média",
@@ -433,7 +433,7 @@
   },
   {
     "id": 3353,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 15,
     "empresa": "",
     "proprietario": "RICLECIO ALVES DA COSTA",
     "tamanho": "Média",
@@ -441,7 +441,7 @@
   },
   {
     "id": 1749,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 16,
     "empresa": "",
     "proprietario": "JOEL BATISTA DA COSTA",
     "tamanho": "Média",
@@ -449,7 +449,7 @@
   },
   {
     "id": 3354,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 17,
     "empresa": "",
     "proprietario": "MICKAEL MARCELINO",
     "tamanho": "Média",
@@ -457,7 +457,7 @@
   },
   {
     "id": 3355,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 18,
     "empresa": "",
     "proprietario": "PEDRINHO ANDRADE DE SOUSA",
     "tamanho": "Média",
@@ -465,7 +465,7 @@
   },
   {
     "id": 3356,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 19,
     "empresa": "",
     "proprietario": "FRANCISCO SALES DE SOUSA",
     "tamanho": "Média",
@@ -473,7 +473,7 @@
   },
   {
     "id": 3357,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 20,
     "empresa": "",
     "proprietario": "DANIEL GOMES DA CSOTA",
     "tamanho": "Média",
@@ -481,7 +481,7 @@
   },
   {
     "id": 3358,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 21,
     "empresa": "",
     "proprietario": "JOSÉ ROMARIO CASTRO ALVES",
     "tamanho": "Média",
@@ -489,7 +489,7 @@
   },
   {
     "id": 3359,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 22,
     "empresa": "",
     "proprietario": "FRANCISCO M.FILHO",
     "tamanho": "Média",
@@ -497,7 +497,7 @@
   },
   {
     "id": 152,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 1,
     "empresa": "",
     "proprietario": "FCº DO CARMO BISPO",
     "tamanho": "Grande",
@@ -505,7 +505,7 @@
   },
   {
     "id": 3360,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 2,
     "empresa": "",
     "proprietario": "JOSÉ DO CARMO BISPO",
     "tamanho": "Grande",
@@ -513,7 +513,7 @@
   },
   {
     "id": 354,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 3,
     "empresa": "",
     "proprietario": "JOÃO DIAS NETO",
     "tamanho": "Grande",
@@ -521,7 +521,7 @@
   },
   {
     "id": 455,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 4,
     "empresa": "",
     "proprietario": "FCº JOSÉ FERREIRA DA SILVA",
     "tamanho": "Grande",
@@ -529,7 +529,7 @@
   },
   {
     "id": 556,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 5,
     "empresa": "",
     "proprietario": "CELIO LAURENTINO DOS SANTOS",
     "tamanho": "Grande",
@@ -537,7 +537,7 @@
   },
   {
     "id": 3361,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 6,
     "empresa": "",
     "proprietario": "JOSÉ FEREIRA DOS SANTOS",
     "tamanho": "Grande",
@@ -545,7 +545,7 @@
   },
   {
     "id": 3362,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 7,
     "empresa": "",
     "proprietario": "FCº JOSÉ DA COSTA",
     "tamanho": "Grande",
@@ -553,7 +553,7 @@
   },
   {
     "id": 859,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 8,
     "empresa": "",
     "proprietario": "ERISVANDO PEREIRA DOS SANTOS",
     "tamanho": "Grande",
@@ -561,7 +561,7 @@
   },
   {
     "id": 960,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 9,
     "empresa": "",
     "proprietario": "JOSÉ ROMARIO C.ALVES",
     "tamanho": "Grande",
@@ -569,7 +569,7 @@
   },
   {
     "id": 3363,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 10,
     "empresa": "",
     "proprietario": "MOISES DE SOUSA BEZERRA",
     "tamanho": "Grande",
@@ -577,7 +577,7 @@
   },
   {
     "id": 1061,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 11,
     "empresa": "",
     "proprietario": "JOÃO EVANGELISTA M.BEZERRA",
     "tamanho": "Grande",
@@ -585,7 +585,7 @@
   },
   {
     "id": 3364,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 12,
     "empresa": "",
     "proprietario": "JOSÉ LEONARDO DA COSTA",
     "tamanho": "Grande",
@@ -593,7 +593,7 @@
   },
   {
     "id": 3365,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 13,
     "empresa": "",
     "proprietario": "FCº JOSÉ DA COSTA",
     "tamanho": "Grande",
@@ -601,7 +601,7 @@
   },
   {
     "id": 3366,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 14,
     "empresa": "",
     "proprietario": "ANTONIO FERREIRA DE QUEIROZ",
     "tamanho": "Grande",
@@ -609,7 +609,7 @@
   },
   {
     "id": 3367,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 15,
     "empresa": "",
     "proprietario": "JAI CORDEIRO DA SILVA",
     "tamanho": "Grande",
@@ -617,7 +617,7 @@
   },
   {
     "id": 3368,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 16,
     "empresa": "",
     "proprietario": "PETRONIO CARNEIRO BARROSO",
     "tamanho": "Grande",
@@ -625,7 +625,7 @@
   },
   {
     "id": 3369,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 17,
     "empresa": "",
     "proprietario": "JOSÉ ROMARIO C.ALVES",
     "tamanho": "Grande",
@@ -633,7 +633,7 @@
   },
   {
     "id": 3370,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 18,
     "empresa": "",
     "proprietario": "AUGUSTO G.PINTO",
     "tamanho": "Grande",
@@ -641,7 +641,7 @@
   },
   {
     "id": 3371,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 19,
     "empresa": "",
     "proprietario": "PEDRINHO ANDRADE DE SOUSA",
     "tamanho": "Grande",
@@ -649,7 +649,7 @@
   },
   {
     "id": 3372,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 20,
     "empresa": "",
     "proprietario": "FCº JOSÉ  ANDARDE DE SOUSA",
     "tamanho": "Grande",
@@ -657,7 +657,7 @@
   },
   {
     "id": 3373,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 21,
     "empresa": "",
     "proprietario": "RAIMUNDA RICARDO GOMES",
     "tamanho": "Grande",
@@ -665,7 +665,7 @@
   },
   {
     "id": 3374,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 22,
     "empresa": "",
     "proprietario": "ANTONIO MACIEL DE SOUSA",
     "tamanho": "Grande",
@@ -673,7 +673,7 @@
   },
   {
     "id": 3375,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 23,
     "empresa": "",
     "proprietario": "COSMO DOS SANTOS DE AZEVEDO",
     "tamanho": "Grande",
@@ -681,7 +681,7 @@
   },
   {
     "id": 3376,
-    "numEmbarcacao": 0,
+    "numEmbarcacao": 24,
     "empresa": "",
     "proprietario": "JOÃO PAULO C. SANTOS",
     "tamanho": "Grande",
