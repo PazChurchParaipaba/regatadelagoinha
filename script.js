@@ -533,10 +533,112 @@ document.addEventListener('DOMContentLoaded', async () => {
         fetchPatrocinadores();
     };
 
+    // ==========================================
+    // COMPROVANTES VELA LOGIC
+    // ==========================================
+    const formComprovantesVela = document.getElementById('form-comprovantes-vela');
+    const tableComprovantesVela = document.querySelector('#table-comprovantes-vela tbody');
+    let comprovantesVelaData = [];
+
+    async function fetchComprovantesVela() {
+        const { data, error } = await supabaseClient.from('comprovantes_vela').select('*').order('created_at', { ascending: false });
+        if (!error) {
+            comprovantesVelaData = data;
+            renderComprovantesVela();
+        }
+    }
+
+    formComprovantesVela.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btnSubmit = document.getElementById('btn-submit-vela');
+        if(btnSubmit) {
+            btnSubmit.innerHTML = '<span>Salvando...</span><i class="ri-loader-4-line"></i>';
+            btnSubmit.disabled = true;
+        }
+
+        try {
+            const nome = document.getElementById('nome-vela').value;
+            const valor = parseFloat(document.getElementById('valor-vela').value);
+            const fileInput = document.getElementById('arquivo-vela');
+            
+            let comprovante_url = null;
+            
+            if (fileInput && fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+                
+                const { data: uploadData, error: uploadError } = await supabaseClient
+                    .storage
+                    .from('comprovantes')
+                    .upload(`vela/${fileName}`, file);
+                    
+                if (uploadError) {
+                    console.error('Erro no upload:', uploadError);
+                    alert('Erro ao enviar o comprovante. Tente novamente.');
+                    throw uploadError;
+                } else {
+                    const { data: publicUrlData } = supabaseClient
+                        .storage
+                        .from('comprovantes')
+                        .getPublicUrl(`vela/${fileName}`);
+                    comprovante_url = publicUrlData.publicUrl;
+                }
+            }
+
+            await supabaseClient.from('comprovantes_vela').insert([{ nome, valor, comprovante_url }]);
+            
+            formComprovantesVela.reset();
+            document.getElementById('nome-vela').focus();
+            fetchComprovantesVela();
+        } catch(err) {
+            console.error('Erro:', err);
+        } finally {
+            if(btnSubmit) {
+                btnSubmit.innerHTML = '<span>Salvar Comprovante</span><i class="ri-arrow-right-line"></i>';
+                btnSubmit.disabled = false;
+            }
+        }
+    });
+
+    function renderComprovantesVela() {
+        tableComprovantesVela.innerHTML = '';
+        if (comprovantesVelaData.length === 0) {
+            tableComprovantesVela.innerHTML = '<tr><td colspan="4" class="empty-state"><i class="ri-file-list-3-line"></i>Nenhum comprovante registrado.</td></tr>';
+            return;
+        }
+
+        comprovantesVelaData.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${item.nome}</strong></td>
+                <td class="value-highlight">${formatCurrency(item.valor)}</td>
+                <td>
+                    ${item.comprovante_url 
+                        ? `<a href="${item.comprovante_url}" target="_blank" class="btn-icon" style="color: var(--primary); background: rgba(59, 130, 246, 0.1);" title="Ver Comprovante"><i class="ri-file-text-line"></i></a>` 
+                        : `<span style="color: var(--text-muted); font-size: 0.8rem;">Nenhum</span>`}
+                </td>
+                <td class="no-print">
+                    <button class="btn-icon" onclick="deleteComprovanteVela(${item.id})" title="Excluir">
+                        <i class="ri-delete-bin-line"></i>
+                    </button>
+                </td>
+            `;
+            tableComprovantesVela.appendChild(tr);
+        });
+    }
+
+    window.deleteComprovanteVela = async (id) => {
+        await supabaseClient.from('comprovantes_vela').delete().eq('id', id);
+        fetchComprovantesVela();
+    };
+
     // INIT FETCHES
     fetchCestas();
     fetchPrestacao();
     fetchEmbarcacoes();
     fetchTecidos();
     fetchPatrocinadores();
+    fetchComprovantesVela();
 });
