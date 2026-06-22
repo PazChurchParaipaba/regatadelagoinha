@@ -369,6 +369,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td><strong>${item.nome_barco}</strong></td>
                 <td>${item.proprietario || '-'}</td>
                 <td>${item.empresa || '-'}</td>
+                <td><input type="checkbox" onchange="togglePago(${item.id}, this.checked)" ${item.pago ? 'checked' : ''} style="transform: scale(1.3); cursor: pointer;" title="Marcar como pago"></td>
                 <td><span class="tag-size ${item.tamanho === 'Pequena' ? 'tag-pequena' : item.tamanho === 'Média' ? 'tag-media' : item.tamanho === 'Grande' ? 'tag-grande' : ''}">${item.tamanho}</span></td>
                 <td class="no-print">
                     <button class="btn-icon" onclick="deleteEmbarcacao(${item.id})" title="Excluir">
@@ -405,6 +406,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.deleteEmbarcacao = async (id) => {
         await supabaseClient.from('embarcacoes').delete().eq('id', id);
         fetchEmbarcacoes();
+    };
+
+    window.togglePago = async (id, isPaid) => {
+        const { error } = await supabaseClient.from('embarcacoes').update({ pago: isPaid }).eq('id', id);
+        if (error) {
+            console.error('Erro ao atualizar pagamento:', error);
+            alert('Erro ao atualizar o status de pagamento. Tente novamente.');
+            fetchEmbarcacoes(); // reverter estado visual
+        } else {
+            const item = embarcacoesData.find(e => e.id === id);
+            if (item) item.pago = isPaid;
+        }
     };
 
     // ==========================================
