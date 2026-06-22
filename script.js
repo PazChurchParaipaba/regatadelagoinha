@@ -494,73 +494,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     formPatrocinadores.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const nome = document.getElementById('nome-patrocinador').value.trim();
-        const tipo = document.getElementById('tipo-patrocinio').value;
-        const valor = parseFloat(document.getElementById('valor-patrocinio').value);
         
-        await supabaseClient.from('patrocinadores').insert([{ nome, tipo, valor }]);
-        
-        formPatrocinadores.reset();
-        document.getElementById('nome-patrocinador').focus();
-        fetchPatrocinadores();
-    });
-
-    function renderPatrocinadores() {
-        tablePatrocinadores.innerHTML = '';
-        if (patrocinadoresData.length === 0) {
-            tablePatrocinadores.innerHTML = '<tr><td colspan="4" class="empty-state"><i class="ri-medal-line"></i>Nenhum patrocinador registrado.</td></tr>';
-            return;
-        }
-
-        patrocinadoresData.forEach(item => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><strong>${item.nome}</strong></td>
-                <td><span style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 6px;">${item.tipo}</span></td>
-                <td class="value-highlight">${formatCurrency(item.valor)}</td>
-                <td class="no-print">
-                    <button class="btn-icon" onclick="deletePatrocinador(${item.id})" title="Excluir">
-                        <i class="ri-delete-bin-line"></i>
-                    </button>
-                </td>
-            `;
-            tablePatrocinadores.appendChild(tr);
-        });
-    }
-
-    window.deletePatrocinador = async (id) => {
-        await supabaseClient.from('patrocinadores').delete().eq('id', id);
-        fetchPatrocinadores();
-    };
-
-    // ==========================================
-    // COMPROVANTES VELA LOGIC
-    // ==========================================
-    const formComprovantesVela = document.getElementById('form-comprovantes-vela');
-    const tableComprovantesVela = document.querySelector('#table-comprovantes-vela tbody');
-    let comprovantesVelaData = [];
-
-    async function fetchComprovantesVela() {
-        const { data, error } = await supabaseClient.from('comprovantes_vela').select('*').order('created_at', { ascending: false });
-        if (!error) {
-            comprovantesVelaData = data;
-            renderComprovantesVela();
-        }
-    }
-
-    formComprovantesVela.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const btnSubmit = document.getElementById('btn-submit-vela');
+        const btnSubmit = document.getElementById('btn-submit-patrocinador');
         if(btnSubmit) {
             btnSubmit.innerHTML = '<span>Salvando...</span><i class="ri-loader-4-line"></i>';
             btnSubmit.disabled = true;
         }
 
         try {
-            const nome = document.getElementById('nome-vela').value;
-            const valor = parseFloat(document.getElementById('valor-vela').value);
-            const fileInput = document.getElementById('arquivo-vela');
+            const nome = document.getElementById('nome-patrocinador').value.trim();
+            const tipo = document.getElementById('tipo-patrocinio').value;
+            const valor = parseFloat(document.getElementById('valor-patrocinio').value);
+            const fileInput = document.getElementById('comprovante-patrocinador');
             
             let comprovante_url = null;
             
@@ -587,32 +532,33 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
 
-            await supabaseClient.from('comprovantes_vela').insert([{ nome, valor, comprovante_url }]);
+            await supabaseClient.from('patrocinadores').insert([{ nome, tipo, valor, comprovante_url }]);
             
-            formComprovantesVela.reset();
-            document.getElementById('nome-vela').focus();
-            fetchComprovantesVela();
+            formPatrocinadores.reset();
+            document.getElementById('nome-patrocinador').focus();
+            fetchPatrocinadores();
         } catch(err) {
             console.error('Erro:', err);
         } finally {
             if(btnSubmit) {
-                btnSubmit.innerHTML = '<span>Salvar Comprovante</span><i class="ri-arrow-right-line"></i>';
+                btnSubmit.innerHTML = '<span>Registrar Patrocinador</span><i class="ri-arrow-right-line"></i>';
                 btnSubmit.disabled = false;
             }
         }
     });
 
-    function renderComprovantesVela() {
-        tableComprovantesVela.innerHTML = '';
-        if (comprovantesVelaData.length === 0) {
-            tableComprovantesVela.innerHTML = '<tr><td colspan="4" class="empty-state"><i class="ri-file-list-3-line"></i>Nenhum comprovante registrado.</td></tr>';
+    function renderPatrocinadores() {
+        tablePatrocinadores.innerHTML = '';
+        if (patrocinadoresData.length === 0) {
+            tablePatrocinadores.innerHTML = '<tr><td colspan="4" class="empty-state"><i class="ri-medal-line"></i>Nenhum patrocinador registrado.</td></tr>';
             return;
         }
 
-        comprovantesVelaData.forEach(item => {
+        patrocinadoresData.forEach(item => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td><strong>${item.nome}</strong></td>
+                <td><span style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 6px;">${item.tipo}</span></td>
                 <td class="value-highlight">${formatCurrency(item.valor)}</td>
                 <td>
                     ${item.comprovante_url 
@@ -620,18 +566,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                         : `<span style="color: var(--text-muted); font-size: 0.8rem;">Nenhum</span>`}
                 </td>
                 <td class="no-print">
-                    <button class="btn-icon" onclick="deleteComprovanteVela(${item.id})" title="Excluir">
+                    <button class="btn-icon" onclick="deletePatrocinador(${item.id})" title="Excluir">
                         <i class="ri-delete-bin-line"></i>
                     </button>
                 </td>
             `;
-            tableComprovantesVela.appendChild(tr);
+            tablePatrocinadores.appendChild(tr);
         });
     }
 
-    window.deleteComprovanteVela = async (id) => {
-        await supabaseClient.from('comprovantes_vela').delete().eq('id', id);
-        fetchComprovantesVela();
+    window.deletePatrocinador = async (id) => {
+        await supabaseClient.from('patrocinadores').delete().eq('id', id);
+        fetchPatrocinadores();
     };
 
     // INIT FETCHES
@@ -640,5 +586,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     fetchEmbarcacoes();
     fetchTecidos();
     fetchPatrocinadores();
-    fetchComprovantesVela();
 });

@@ -59,10 +59,6 @@
                     <i class="ri-medal-line"></i>
                     <span>Patrocinadores</span>
                 </button>
-                <button class="tab-btn" data-tab="comprovantes-vela">
-                    <i class="ri-file-list-3-line"></i>
-                    <span>Comprovantes Vela</span>
-                </button>
             </div>
         </div>
 
@@ -447,7 +443,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn-primary glow-btn">
+                            <div class="input-group">
+                                <label for="comprovante-patrocinador">Comprovante (PDF/Imagem - Opcional)</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-attachment-line"></i>
+                                    <input type="file" id="comprovante-patrocinador" accept="image/*,.pdf" style="padding: 0.5rem 1rem 0.5rem 2.8rem;">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary glow-btn" id="btn-submit-patrocinador">
                                 <span>Registrar Patrocinador</span>
                                 <i class="ri-arrow-right-line"></i>
                             </button>
@@ -465,64 +468,8 @@
                                         <th>Patrocinador</th>
                                         <th>Tipo</th>
                                         <th>Valor (R$)</th>
+                                        <th>Comprovante</th>
                                         <th>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- JS Content -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Secão Comprovantes Vela -->
-            <section id="comprovantes-vela" class="tab-content">
-                <div class="grid-layout">
-                    <div class="glass-panel form-panel">
-                        <h2><i class="ri-add-circle-line"></i> Novo Comprovante (Vela)</h2>
-                        <form id="form-comprovantes-vela" class="st-form">
-                            <div class="input-group">
-                                <label for="nome-vela">Nome do Pagador / Embarcação</label>
-                                <div class="input-wrapper">
-                                    <i class="ri-user-line"></i>
-                                    <input type="text" id="nome-vela" required placeholder="Ex: Golfinho">
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label for="valor-vela">Valor Pago (R$)</label>
-                                <div class="input-wrapper">
-                                    <i class="ri-money-dollar-circle-line"></i>
-                                    <input type="number" id="valor-vela" step="0.01" required placeholder="0.00">
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label for="arquivo-vela">Comprovante (PDF/Imagem)</label>
-                                <div class="input-wrapper">
-                                    <i class="ri-attachment-line"></i>
-                                    <input type="file" id="arquivo-vela" accept="image/*,.pdf" required style="padding: 0.5rem 1rem 0.5rem 2.8rem;">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn-primary glow-btn" id="btn-submit-vela">
-                                <span>Salvar Comprovante</span>
-                                <i class="ri-arrow-right-line"></i>
-                            </button>
-                        </form>
-                    </div>
-
-                    <div class="glass-panel table-panel">
-                        <div class="panel-header">
-                            <h2><i class="ri-list-check-2"></i> Relatório de Comprovantes (Vela)</h2>
-                        </div>
-                        <div class="table-wrapper">
-                            <table id="table-comprovantes-vela">
-                                <thead>
-                                    <tr>
-                                        <th>De quem é</th>
-                                        <th>Valor (R$)</th>
-                                        <th>Arquivo</th>
-                                        <th class="no-print">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
