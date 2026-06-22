@@ -96,40 +96,104 @@ document.addEventListener('DOMContentLoaded', async () => {
     formCestas.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const nome = document.getElementById('nome').value;
-        const data_pag = document.getElementById('data-pag').value;
-        const valor = parseFloat(document.getElementById('valor').value);
-        const qtd_cestas = parseInt(document.getElementById('qtd-cestas').value);
+        const btnSubmit = document.getElementById('btn-submit-cesta');
+        if(btnSubmit) {
+            btnSubmit.innerHTML = '<span>Salvando...</span><i class="ri-loader-4-line"></i>';
+            btnSubmit.disabled = true;
+        }
 
-        await supabaseClient.from('cestas').insert([{ nome, data_pag, valor, qtd_cestas }]);
-        
-        formCestas.reset();
-        document.getElementById('nome').focus();
-        fetchCestas();
+        try {
+            const nome = document.getElementById('nome').value;
+            const data_pag = document.getElementById('data-pag').value;
+            const valor = parseFloat(document.getElementById('valor').value);
+            const qtd_cestas = parseInt(document.getElementById('qtd-cestas').value);
+            const fileInput = document.getElementById('comprovante');
+            
+            let comprovante_url = null;
+            
+            if (fileInput && fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+                
+                const { data: uploadData, error: uploadError } = await supabaseClient
+                    .storage
+                    .from('comprovantes')
+                    .upload(`cestas/${fileName}`, file);
+                    
+                if (uploadError) {
+                    console.error('Erro no upload:', uploadError);
+                    alert('Erro ao enviar o comprovante. Tente novamente ou deixe vazio.');
+                } else {
+                    const { data: publicUrlData } = supabaseClient
+                        .storage
+                        .from('comprovantes')
+                        .getPublicUrl(`cestas/${fileName}`);
+                    comprovante_url = publicUrlData.publicUrl;
+                }
+            }
+
+            await supabaseClient.from('cestas').insert([{ nome, data_pag, valor, qtd_cestas, comprovante_url }]);
+            
+            formCestas.reset();
+            document.getElementById('nome').focus();
+            fetchCestas();
+        } catch(err) {
+            console.error('Erro:', err);
+        } finally {
+            if(btnSubmit) {
+                btnSubmit.innerHTML = '<span>Registrar Cesta</span><i class="ri-arrow-right-line"></i>';
+                btnSubmit.disabled = false;
+            }
+        }
     });
+
+    const META_CESTAS = 280;
+    const META_VALOR = 30368.80;
 
     function renderCestas() {
         tableCestas.innerHTML = '';
+        
+        let totalPagas = 0;
+        let valorArrecadado = 0;
+
         if (cestasData.length === 0) {
             tableCestas.innerHTML = '<tr><td colspan="5" class="empty-state"><i class="ri-inbox-line"></i>Nenhuma cesta registrada.</td></tr>';
-            return;
+        } else {
+            cestasData.forEach(cesta => {
+                totalPagas += cesta.qtd_cestas || 0;
+                valorArrecadado += cesta.valor || 0;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${cesta.nome}</strong></td>
+                    <td>${formatDate(cesta.data_pag)}</td>
+                    <td class="value-highlight">${formatCurrency(cesta.valor)}</td>
+                    <td><span style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 6px;">${cesta.qtd_cestas}</span></td>
+                    <td>
+                        ${cesta.comprovante_url 
+                            ? `<a href="${cesta.comprovante_url}" target="_blank" class="btn-icon" style="color: var(--primary); background: rgba(59, 130, 246, 0.1);" title="Ver Comprovante"><i class="ri-file-text-line"></i></a>` 
+                            : `<span style="color: var(--text-muted); font-size: 0.8rem;">Nenhum</span>`}
+                    </td>
+                    <td class="no-print">
+                        <button class="btn-icon" onclick="deleteCesta(${cesta.id})" title="Excluir">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                    </td>
+                `;
+                tableCestas.appendChild(tr);
+            });
         }
 
-        cestasData.forEach(cesta => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><strong>${cesta.nome}</strong></td>
-                <td>${formatDate(cesta.data_pag)}</td>
-                <td class="value-highlight">${formatCurrency(cesta.valor)}</td>
-                <td><span style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 6px;">${cesta.qtd_cestas}</span></td>
-                <td class="no-print">
-                    <button class="btn-icon" onclick="deleteCesta(${cesta.id})" title="Excluir">
-                        <i class="ri-delete-bin-line"></i>
-                    </button>
-                </td>
-            `;
-            tableCestas.appendChild(tr);
-        });
+        const cestasPagasEl = document.getElementById('cestas-pagas');
+        const valorArrecadadoEl = document.getElementById('valor-arrecadado');
+        const cestasRestantesEl = document.getElementById('cestas-restantes');
+        const valorRestanteEl = document.getElementById('valor-restante');
+
+        if (cestasPagasEl) cestasPagasEl.innerText = totalPagas;
+        if (valorArrecadadoEl) valorArrecadadoEl.innerText = formatCurrency(valorArrecadado);
+        if (cestasRestantesEl) cestasRestantesEl.innerText = Math.max(0, META_CESTAS - totalPagas);
+        if (valorRestanteEl) valorRestanteEl.innerText = formatCurrency(Math.max(0, META_VALOR - valorArrecadado));
     }
 
     window.deleteCesta = async (id) => {

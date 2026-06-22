@@ -65,6 +65,33 @@
         <div class="content-area">
             <!-- Secão Cestas -->
             <section id="cestas" class="tab-content active">
+                <div class="summary-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                    <div class="glass-panel" style="padding: 1rem; text-align: center;">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Total de Cestas</h3>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">280 <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">+ 10 doações</span></div>
+                    </div>
+                    <div class="glass-panel" style="padding: 1rem; text-align: center;">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Valor Total</h3>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">R$ 30.368,80</div>
+                    </div>
+                    <div class="glass-panel" style="padding: 1rem; text-align: center;">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Cestas Pagas</h3>
+                        <div id="cestas-pagas" style="font-size: 1.5rem; font-weight: bold; color: var(--success);">0</div>
+                    </div>
+                    <div class="glass-panel" style="padding: 1rem; text-align: center;">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Valor Arrecadado</h3>
+                        <div id="valor-arrecadado" style="font-size: 1.5rem; font-weight: bold; color: var(--success);">R$ 0,00</div>
+                    </div>
+                    <div class="glass-panel" style="padding: 1rem; text-align: center;">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Restante (Cestas)</h3>
+                        <div id="cestas-restantes" style="font-size: 1.5rem; font-weight: bold; color: #ff4757;">280</div>
+                    </div>
+                    <div class="glass-panel" style="padding: 1rem; text-align: center;">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Restante (Valor)</h3>
+                        <div id="valor-restante" style="font-size: 1.5rem; font-weight: bold; color: #ff4757;">R$ 30.368,80</div>
+                    </div>
+                </div>
+
                 <div class="grid-layout">
                     <div class="glass-panel form-panel">
                         <h2><i class="ri-add-circle-line"></i> Nova Cesta</h2>
@@ -99,7 +126,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn-primary glow-btn">
+                            <div class="input-group">
+                                <label for="comprovante">Comprovante de Pagamento (Opcional)</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-attachment-line"></i>
+                                    <input type="file" id="comprovante" accept="image/*,.pdf" style="padding: 0.5rem 1rem 0.5rem 2.8rem;">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary glow-btn" id="btn-submit-cesta">
                                 <span>Registrar Cesta</span>
                                 <i class="ri-arrow-right-line"></i>
                             </button>
@@ -118,6 +152,7 @@
                                         <th>Data</th>
                                         <th>Valor</th>
                                         <th>Qtd</th>
+                                        <th>Comprovante</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
