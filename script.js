@@ -234,19 +234,59 @@ document.addEventListener('DOMContentLoaded', async () => {
     formPrestacao.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const fornecedor = document.getElementById('fornecedor').value.trim();
-        const produto = document.getElementById('produto').value.trim();
-        const qtd = parseFloat(inputQtd.value);
-        const unidade = document.getElementById('unidade').value.trim();
-        const valor = parseFloat(inputValorUnitario.value);
-        const total = parseFloat(inputTotal.value);
+        const btnSubmit = document.getElementById('btn-submit-despesa');
+        if(btnSubmit) {
+            btnSubmit.innerHTML = '<span>Salvando...</span><i class="ri-loader-4-line"></i>';
+            btnSubmit.disabled = true;
+        }
 
-        await supabaseClient.from('despesas').insert([{ fornecedor, produto, qtd, unidade, valor, total }]);
+        try {
+            const fornecedor = document.getElementById('fornecedor').value.trim();
+            const produto = document.getElementById('produto').value.trim();
+            const qtd = parseFloat(inputQtd.value);
+            const unidade = document.getElementById('unidade').value.trim();
+            const valor = parseFloat(inputValorUnitario.value);
+            const total = parseFloat(inputTotal.value);
+            const fileInput = document.getElementById('comprovante-despesa');
 
-        formPrestacao.reset();
-        inputTotal.value = '';
-        document.getElementById('fornecedor').focus();
-        fetchPrestacao();
+            let comprovante_url = null;
+
+            if (fileInput && fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+                
+                const { data: uploadData, error: uploadError } = await supabaseClient
+                    .storage
+                    .from('comprovantes')
+                    .upload(`despesas/${fileName}`, file);
+                    
+                if (uploadError) {
+                    console.error('Erro no upload:', uploadError);
+                    alert('Erro ao enviar o comprovante. Tente novamente ou deixe vazio.');
+                } else {
+                    const { data: publicUrlData } = supabaseClient
+                        .storage
+                        .from('comprovantes')
+                        .getPublicUrl(`despesas/${fileName}`);
+                    comprovante_url = publicUrlData.publicUrl;
+                }
+            }
+
+            await supabaseClient.from('despesas').insert([{ fornecedor, produto, qtd, unidade, valor, total, comprovante_url }]);
+
+            formPrestacao.reset();
+            inputTotal.value = '';
+            document.getElementById('fornecedor').focus();
+            fetchPrestacao();
+        } catch (err) {
+            console.error('Erro:', err);
+        } finally {
+            if(btnSubmit) {
+                btnSubmit.innerHTML = '<span>Registrar Despesa</span><i class="ri-arrow-right-line"></i>';
+                btnSubmit.disabled = false;
+            }
+        }
     });
 
     filterFornecedor.addEventListener('input', renderPrestacao);
@@ -270,6 +310,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td><span style="color: var(--text-muted);">${item.qtd} ${item.unidade}</span></td>
                 <td>${formatCurrency(item.valor)}</td>
                 <td class="value-highlight">${formatCurrency(item.total)}</td>
+                <td>
+                    ${item.comprovante_url 
+                        ? `<a href="${item.comprovante_url}" target="_blank" class="btn-icon" style="color: var(--primary); background: rgba(59, 130, 246, 0.1);" title="Ver Comprovante"><i class="ri-file-text-line"></i></a>` 
+                        : `<span style="color: var(--text-muted); font-size: 0.8rem;">Nenhum</span>`}
+                </td>
                 <td class="no-print">
                     <button class="btn-icon" onclick="deletePrestacao(${item.id})" title="Excluir">
                         <i class="ri-delete-bin-line"></i>

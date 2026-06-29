@@ -221,7 +221,15 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn-primary glow-btn">
+                            <div class="input-group">
+                                <label for="comprovante-despesa">Comprovante de Despesa (Opcional)</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-attachment-line"></i>
+                                    <input type="file" id="comprovante-despesa" accept="image/*,.pdf" style="padding: 0.5rem 1rem 0.5rem 2.8rem;">
+                                </div>
+                            </div>
+
+                            <button type="submit" id="btn-submit-despesa" class="btn-primary glow-btn">
                                 <span>Registrar Despesa</span>
                                 <i class="ri-arrow-right-line"></i>
                             </button>
@@ -245,6 +253,7 @@
                                         <th>Qtd/Unid</th>
                                         <th>V. Unitário</th>
                                         <th>Total</th>
+                                        <th>Comprovante</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
