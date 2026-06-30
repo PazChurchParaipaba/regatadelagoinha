@@ -59,6 +59,10 @@
                     <i class="ri-medal-line"></i>
                     <span>Patrocinadores</span>
                 </button>
+                <button class="tab-btn" data-tab="oficios">
+                    <i class="ri-mail-send-line"></i>
+                    <span>Ofícios</span>
+                </button>
             </div>
         </div>
 
@@ -479,6 +483,65 @@
                                         <th>Valor (R$)</th>
                                         <th>Comprovante</th>
                                         <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- JS Content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secão Ofícios -->
+            <section id="oficios" class="tab-content">
+                <div class="grid-layout">
+                    <div class="glass-panel form-panel">
+                        <h2><i class="ri-add-circle-line"></i> Registrar Entrega de Ofício</h2>
+                        <form id="form-oficios" class="st-form">
+                            <div class="input-group">
+                                <label for="empresa-oficio">Nome da Empresa</label>
+                                <div class="input-wrapper">
+                                    <i class="ri-building-line"></i>
+                                    <input type="text" id="empresa-oficio" required placeholder="Ex: Supermercado XYZ">
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="entregador-oficio">Quem Entregou</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-user-line"></i>
+                                        <input type="text" id="entregador-oficio" required placeholder="Ex: João da Silva">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="telefone-oficio">Telefone da Empresa (Opcional)</label>
+                                    <div class="input-wrapper">
+                                        <i class="ri-phone-line"></i>
+                                        <input type="text" id="telefone-oficio" placeholder="Ex: (85) 90000-0000">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary glow-btn" id="btn-submit-oficio">
+                                <span>Registrar Ofício</span>
+                                <i class="ri-arrow-right-line"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="glass-panel table-panel">
+                        <div class="panel-header">
+                            <h2><i class="ri-list-check-2"></i> Controle de Ofícios Entregues</h2>
+                        </div>
+                        <div class="table-wrapper">
+                            <table id="table-oficios">
+                                <thead>
+                                    <tr>
+                                        <th>Empresa</th>
+                                        <th>Quem Entregou</th>
+                                        <th>Telefone</th>
+                                        <th class="no-print">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>

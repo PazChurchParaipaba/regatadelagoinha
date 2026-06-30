@@ -631,4 +631,90 @@ document.addEventListener('DOMContentLoaded', async () => {
     fetchEmbarcacoes();
     fetchTecidos();
     fetchPatrocinadores();
+
+    // ==========================================
+    // OFÍCIOS LOGIC
+    // ==========================================
+    const formOficios = document.getElementById('form-oficios');
+    const tableOficios = document.querySelector('#table-oficios tbody');
+    let oficiosData = [];
+
+    async function fetchOficios() {
+        const { data, error } = await supabaseClient.from('oficios').select('*').order('created_at', { ascending: false });
+        if (!error) {
+            oficiosData = data;
+            renderOficios();
+        } else {
+            console.error('Erro ao buscar ofícios:', error);
+            oficiosData = [];
+            renderOficios();
+        }
+    }
+
+    if (formOficios) {
+        formOficios.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btnSubmit = document.getElementById('btn-submit-oficio');
+            if(btnSubmit) {
+                btnSubmit.innerHTML = '<span>Salvando...</span><i class="ri-loader-4-line"></i>';
+                btnSubmit.disabled = true;
+            }
+
+            try {
+                const empresa = document.getElementById('empresa-oficio').value.trim();
+                const entregador = document.getElementById('entregador-oficio').value.trim();
+                const telefone = document.getElementById('telefone-oficio').value.trim() || null;
+
+                const { error } = await supabaseClient.from('oficios').insert([{ empresa, entregador, telefone }]);
+                
+                if (error) {
+                    console.error('Erro ao salvar ofício:', error);
+                    alert('Erro ao salvar. Verifique se a tabela "oficios" foi criada no Supabase e tem as colunas: empresa, entregador e telefone.');
+                } else {
+                    formOficios.reset();
+                    document.getElementById('empresa-oficio').focus();
+                    fetchOficios();
+                }
+            } catch(err) {
+                console.error('Erro:', err);
+            } finally {
+                if(btnSubmit) {
+                    btnSubmit.innerHTML = '<span>Registrar Ofício</span><i class="ri-arrow-right-line"></i>';
+                    btnSubmit.disabled = false;
+                }
+            }
+        });
+    }
+
+    function renderOficios() {
+        if (!tableOficios) return;
+        tableOficios.innerHTML = '';
+        if (oficiosData.length === 0) {
+            tableOficios.innerHTML = '<tr><td colspan="4" class="empty-state"><i class="ri-mail-send-line"></i>Nenhum ofício registrado.</td></tr>';
+            return;
+        }
+
+        oficiosData.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${item.empresa}</strong></td>
+                <td><span style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 6px;">${item.entregador}</span></td>
+                <td>${item.telefone || '<span style="color: var(--text-muted); font-size: 0.8rem;">Não informado</span>'}</td>
+                <td class="no-print">
+                    <button class="btn-icon" onclick="deleteOficio(${item.id})" title="Excluir">
+                        <i class="ri-delete-bin-line"></i>
+                    </button>
+                </td>
+            `;
+            tableOficios.appendChild(tr);
+        });
+    }
+
+    window.deleteOficio = async (id) => {
+        await supabaseClient.from('oficios').delete().eq('id', id);
+        fetchOficios();
+    };
+
+    fetchOficios();
 });
